@@ -13,6 +13,12 @@ export default function SearchBar() {
         placeholder="State, city or town"
         value={location}
         onChange={(e) => setLocation(e.target.value)}
+        onKeyPress={(e) => {
+          if (e.key === "Enter" && location !== "") {
+            router.push(`/search?city=${location}`);
+            setLocation("");
+          }
+        }}
       />
       <button
         className="rounded bg-red-600 px-9 py-2 text-white"
