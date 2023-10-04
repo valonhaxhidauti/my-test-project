@@ -29,7 +29,7 @@ export default async function RestaurantMenu({
   const menu = await fetchRestaurantMenu(params.slug);
   return (
     <>
-      <title>Menu of Milestones Gril (Toronto) | OpenTable</title>
+      <title>OpenTable</title>
       <div className="bg-white w-[100%] rounded p-3 shadow">
         <RestaurantNavBar slug={params.slug} />
         <Menu menu={menu} />
