@@ -1,0 +1,5 @@
+Folder: 9. Global State With Context API
+2. Creating a Custom useAuth Hook
+
+Colin Bryar_ Bill Carr - Organizational Dependencies
+Page: 80
