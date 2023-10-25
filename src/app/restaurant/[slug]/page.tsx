@@ -9,11 +9,13 @@ import { PrismaClient, Review } from "@prisma/client";
 import { notFound } from "next/navigation";
 
 interface Restaurant {
-  slug: string;
   id: number;
   name: string;
   images: string[];
   description: string;
+  open_time: string;
+  close_time: string;
+  slug: string;
   reviews: Review[];
 }
 
@@ -31,11 +33,13 @@ const fetchRestaurantBySlug = async (slug: string): Promise<Restaurant> => {
       description: true,
       slug: true,
       reviews: true,
+      open_time: true,
+      close_time: true,
     },
   });
 
   if (!restaurant) {
-    notFound()
+    notFound();
   }
 
   return restaurant;
@@ -54,13 +58,13 @@ export default async function RestaurantDetails({
       <div className="bg-white w-[70%] rounded p-3 shadow">
         <RestaurantNavBar slug={restaurant.slug} />
         <Title name={restaurant.name} />
-        <Rating reviews={restaurant.reviews}/>
+        <Rating reviews={restaurant.reviews} />
         <Description description={restaurant.description} />
         <Images images={restaurant.images} />
-        <Reviews reviews={restaurant.reviews}/>
+        <Reviews reviews={restaurant.reviews} />
       </div>
       <div className="w-[27%] relative text-reg">
-        <ReservationCard />
+        <ReservationCard openTime={restaurant.open_time} closeTime={restaurant.close_time}/>
       </div>
     </>
   );

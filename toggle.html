@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .slider-styled,
+      .slider-styled .noUi-handle {
+        box-shadow: none;
+      }
+
+      /* Hide markers on slider handles */
+      .slider-styled .noUi-handle::before,
+      .slider-styled .noUi-handle::after {
+        display: none;
+      }
+
+      .slider-styled .noUi-handle .noUi-touch-area {
+        border: 1px solid transparent;
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        width: auto;
+        height: auto;
+      }
+
+      .noUi-handle {
+        border: none !important;
+        background-color: #e15726 !important;
+      }
+
+      .noUi-target {
+        background: #eaeaea !important;
+        border-radius: 6px !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
+
+      #slider-round {
+        height: 10px;
+      }
+
+      #slider-round .noUi-connect {
+        background: #e15726;
+      }
+
+      #slider-round .noUi-handle {
+        height: 18px;
+        width: 18px;
+        top: -5px;
+        right: -9px; 
+        border-radius: 9px;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div class="filter-content w-full bg-white">
+      <div class="p-4 border-b">
+        <div
+          style="margin-bottom: 30px"
+          class="slider-styled noUi-target noUi-ltr noUi-horizontal noUi-txt-dir-ltr"
+          id="slider-round"
+        ></div>
+        <div class="selected-price-range flex justify-around items-center">
+          <input
+            class="w-full from-price"
+            name="priceChange"
+            min="2"
+            type="number"
+            placeholder="2"
+          />
+          <span class="text-sm text-gray-600 mx-2">to</span>
+          <input
+            class="w-full to-price"
+            name="priceChange"
+            max="7795"
+            type="number"
+            placeholder="7795"
+          />
+        </div>
+        <span
+          class="flex items-center text-xs text-gray-600 error-message my-2 flex-wrap"
+        >
+          Filtrimi mund të bëhet nga
+          <span class="text-primary mx-1"> 2 Euro </span>
+          deri në
+          <span class="text-primary mx-1"> 7795 Euro </span>
+        </span>
+        <div class="flex justify-end">
+          <button
+            class="py-1 px-2 border-primary btn-simple bg-white hover:bg-primary hover:text-white text-primary submit-price-range w-full"
+          >
+            Apliko
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    // Wait for the document to be fully loaded
+    document.addEventListener("DOMContentLoaded", function () {
+      // Get the elements you'll need
+      const slider = document.getElementById("slider-round");
+      const fromPrice = document.querySelector(".from-price");
+      const toPrice = document.querySelector(".to-price");
+
+      // Parse the price range from the input elements
+      const minPrice = parseFloat(fromPrice.min);
+      const maxPrice = parseFloat(toPrice.max);
+
+      // Initialize the noUiSlider
+      noUiSlider.create(slider, {
+        start: [minPrice, maxPrice], // Initial values
+        connect: true, // Connect the two handles
+        step: 1, // Increment step
+        range: {
+          min: [minPrice],
+          max: [maxPrice],
+        },
+      });
+
+      // Bind the input elements to the slider values
+      slider.noUiSlider.on("update", function (values, handle) {
+        const value = parseFloat(values[handle]);
+        if (handle === 0) {
+          fromPrice.value = value.toFixed(2);
+        } else {
+          toPrice.value = value.toFixed(2);
+        }
+      });
+
+      // Bind input elements to slider handles
+      fromPrice.addEventListener("change", function () {
+        slider.noUiSlider.set([parseFloat(this.value), null]);
+      });
+
+      toPrice.addEventListener("change", function () {
+        slider.noUiSlider.set([null, parseFloat(this.value)]);
+      });
+
+      // Apply button click event
+      const applyButton = document.querySelector(".submit-price-range");
+      applyButton.addEventListener("click", function () {
+        const min = parseFloat(fromPrice.value);
+        const max = parseFloat(toPrice.value);
+        slider.noUiSlider.set([min, max]);
+      });
+    });
+  </script>
+</html>

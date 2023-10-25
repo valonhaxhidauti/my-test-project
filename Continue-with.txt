@@ -1,5 +1,5 @@
-Folder: 9. Global State With Context API
-2. Creating a Custom useAuth Hook
+Folder: 10. Building an Availability System
+6. Understanding Many to Many Relationships
 
 Colin Bryar_ Bill Carr - Organizational Dependencies
 Page: 80
