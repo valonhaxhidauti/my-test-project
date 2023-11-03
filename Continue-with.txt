@@ -1,5 +1,5 @@
 Folder: 10. Building an Availability System
-6. Understanding Many to Many Relationships
+20. Rendering the Available Time Options
 
 Colin Bryar_ Bill Carr - Organizational Dependencies
 Page: 80
